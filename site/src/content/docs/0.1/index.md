@@ -41,7 +41,7 @@ A crate conforms to this profile if and only if all of the following are true:
 4. The Metadata Descriptor (the entity with `@id: ro-crate-metadata.json`) carries a `conformsTo` of `{"@id": "https://w3id.org/ro/crate/1.2"}`.
 5. Every required property listed in §4 below is present on its respective entity.
 
-Conformance can be checked by the `fairscape-cli rocrate validate` command, which today performs Pydantic-based structural validation.
+Conformance can be checked by the `fairscape-cli rocrate validate` command, which today performs Pydantic-based structural validation. The validator entry point is pinned at [`rocrate_commands.py:1290`](https://github.com/fairscape/fairscape-cli/blob/8c8e6bcf929dcb72b2ef7cfde6f650704cdd0b51/src/fairscape_cli/commands/rocrate_commands.py#L1290) (permalink to the v0.1 reference commit). Install instructions: <https://fairscape.github.io/fairscape-cli/setup/>.
 
 ### 2.1 Example conformance signal
 
