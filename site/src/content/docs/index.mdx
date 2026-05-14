@@ -1,0 +1,33 @@
+---
+title: Fairscape RO-Crate Profile
+description: What it means for an RO-Crate to be a Fairscape release — entity types, required properties, supporting files, and base specifications a conforming crate references.
+template: doc
+---
+
+The Fairscape RO-Crate Profile defines what it means for an RO-Crate to be a **Fairscape release**: the entity types, required properties, supporting files, and base specifications a conforming crate references.
+
+## Published versions
+
+| Version | Profile URI | Specification | Status |
+|---|---|---|---|
+| 0.1 | `https://w3id.org/fairscape/profile/0.1` | [v0.1 spec](/profile/0.1/) | Current |
+
+Profile URIs are immutable. Future revisions will be published under a new URI; a crate's `dct:conformsTo` value pins the exact revision it was authored against.
+
+## How conformance is signaled
+
+A Fairscape release crate declares conformance by setting `dct:conformsTo` on its Root Data Entity:
+
+```json
+{
+  "@id": "ark:99999/my-release",
+  "@type": ["Dataset", "https://w3id.org/EVI#ROCrate"],
+  "conformsTo": { "@id": "https://w3id.org/fairscape/profile/0.1" }
+}
+```
+
+The `@type` of a release crate is **always** `["Dataset", "https://w3id.org/EVI#ROCrate"]`.
+
+## Background
+
+The profile is built on top of [RO-Crate 1.2](https://www.researchobject.org/ro-crate/specification/1.2/) using the [W3C Profiles Vocabulary (PROF)](https://www.w3.org/TR/dx-prof/). Each version is published as a Profile Crate (RO-Crate with Root typed `["Dataset","Profile"]`) bundling its specification, vocabulary, JSON Schemas, Croissant mapping, example crate, and validator pointer under standard PROF roles.

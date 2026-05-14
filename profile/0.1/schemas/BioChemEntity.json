@@ -1,0 +1,153 @@
+{
+  "$defs": {
+    "IdentifierPropertyValue": {
+      "properties": {
+        "@type": {
+          "default": "PropertyValue",
+          "title": "@Type",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "name"
+      ],
+      "title": "IdentifierPropertyValue",
+      "type": "object"
+    },
+    "IdentifierValue": {
+      "additionalProperties": true,
+      "properties": {
+        "@id": {
+          "title": "@Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "@id"
+      ],
+      "title": "IdentifierValue",
+      "type": "object"
+    }
+  },
+  "additionalProperties": true,
+  "description": "Pydantic model for the Schema.org BioChemEntity datatype\n\nThis class can apply to Protiens, Genes, Chemical Entities, or Biological Samples",
+  "properties": {
+    "@id": {
+      "title": "@Id",
+      "type": "string"
+    },
+    "@type": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": [
+        "prov:Entity",
+        "evi:BioChemEntity"
+      ],
+      "title": "@Type"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "identifier": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/IdentifierPropertyValue"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": [],
+      "title": "Identifier"
+    },
+    "associatedDisease": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/IdentifierValue"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "usedBy": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/IdentifierValue"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": [],
+      "title": "Usedby"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Description"
+    },
+    "isPartOf": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/IdentifierValue"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": [],
+      "title": "Ispartof"
+    },
+    "fairscapeVersion": {
+      "default": "1.0.20",
+      "title": "Fairscapeversion",
+      "type": "string"
+    }
+  },
+  "required": [
+    "@id",
+    "name"
+  ],
+  "title": "BioChemEntity",
+  "type": "object"
+}

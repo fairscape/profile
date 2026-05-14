@@ -1,0 +1,101 @@
+{
+  "@context": [
+    "https://w3id.org/ro/crate/1.2/context",
+    {
+      "prof": "http://www.w3.org/ns/dx/prof/",
+      "role": "http://www.w3.org/ns/dx/prof/role/",
+      "dct": "http://purl.org/dc/terms/"
+    }
+  ],
+  "@graph": [
+    {
+      "@id": "ro-crate-metadata.json",
+      "@type": "CreativeWork",
+      "conformsTo": [
+        { "@id": "https://w3id.org/ro/crate/1.2" }
+      ],
+      "about": { "@id": "https://w3id.org/fairscape/profile/0.1" }
+    },
+    {
+      "@id": "https://w3id.org/fairscape/profile/0.1",
+      "@type": ["Dataset", "Profile"],
+      "conformsTo": { "@id": "https://w3id.org/fairscape/profile/0.1" },
+      "name": "Fairscape Release RO-Crate Profile",
+      "version": "0.1",
+      "description": "Profile Crate for the Fairscape Release RO-Crate Profile v0.1. This is the W3C PROF manifest enumerating the constituent artifacts (specification, vocabulary, schemas, mapping, example, validator) that together define what it means for an RO-Crate to be a Fairscape release.",
+      "keywords": ["RO-Crate", "profile", "Fairscape", "EVI", "FAIR", "AI-Ready"],
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "author": "Fairscape Team",
+      "datePublished": "2026-05-13",
+      "prof:isProfileOf": [
+        { "@id": "https://w3id.org/ro/crate/1.2" },
+        { "@id": "https://w3id.org/EVI" },
+        { "@id": "http://www.w3.org/ns/prov" },
+        { "@id": "http://mlcommons.org/croissant/1.0" }
+      ],
+      "prof:hasResource": [
+        { "@id": "#specification" },
+        { "@id": "#vocabulary" },
+        { "@id": "#schema" },
+        { "@id": "#mapping" },
+        { "@id": "#example" },
+        { "@id": "#validation" }
+      ],
+      "hasPart": [
+        { "@id": "index.md" },
+        { "@id": "evi-vocabulary.ttl" },
+        { "@id": "schemas/" },
+        { "@id": "examples/release/ro-crate-metadata.json" }
+      ]
+    },
+    {
+      "@id": "#specification",
+      "@type": "prof:ResourceDescriptor",
+      "name": "Human-readable specification",
+      "prof:hasRole": { "@id": "role:specification" },
+      "prof:hasArtifact": { "@id": "https://fairscape.github.io/profile/0.1/" },
+      "dct:format": "text/html"
+    },
+    {
+      "@id": "#vocabulary",
+      "@type": "prof:ResourceDescriptor",
+      "name": "EVI ontology (OWL/RDFS classes and properties)",
+      "prof:hasRole": { "@id": "role:vocabulary" },
+      "prof:hasArtifact": { "@id": "https://fairscape.github.io/profile/0.1/evi-vocabulary.ttl" },
+      "dct:format": "text/turtle"
+    },
+    {
+      "@id": "#schema",
+      "@type": "prof:ResourceDescriptor",
+      "name": "Per-class JSON Schemas (auto-generated from Pydantic)",
+      "prof:hasRole": { "@id": "role:schema" },
+      "prof:hasArtifact": { "@id": "https://fairscape.github.io/profile/0.1/schemas/" },
+      "dct:format": "application/schema+json"
+    },
+    {
+      "@id": "#mapping",
+      "@type": "prof:ResourceDescriptor",
+      "name": "Croissant / Croissant-RAI 1.0 crosswalk",
+      "prof:hasRole": { "@id": "role:mapping" },
+      "prof:hasArtifact": { "@id": "https://fairscape.github.io/profile/0.1/croissant-mapping.md" },
+      "dct:format": "text/markdown"
+    },
+    {
+      "@id": "#example",
+      "@type": "prof:ResourceDescriptor",
+      "name": "Canonical conforming RO-Crate (CM4AI June 2025 release)",
+      "prof:hasRole": { "@id": "role:example" },
+      "prof:hasArtifact": { "@id": "https://fairscape.github.io/profile/0.1/examples/release/ro-crate-metadata.json" },
+      "dct:format": "application/ld+json"
+    },
+    {
+      "@id": "#validation",
+      "@type": "prof:ResourceDescriptor",
+      "name": "Validator: fairscape-cli rocrate validate",
+      "description": "v0.1 uses Pydantic-based structural validation. SHACL shapes and a file-presence checker are planned for v0.2.",
+      "prof:hasRole": { "@id": "role:validation" },
+      "prof:hasArtifact": { "@id": "https://github.com/fairscape/fairscape-cli#validate" },
+      "dct:format": "text/x-python"
+    }
+  ]
+}

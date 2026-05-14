@@ -1,0 +1,55 @@
+/*
+ * Fairscape theme override for Starlight.
+ * Only the accent color, font, and a couple of inline-code accents are
+ * customized. Starlight's gray scale already handles body-text contrast in
+ * both themes — overriding it inverts the foreground/background semantics
+ * (`--sl-color-white` is the *foreground* in Starlight, not the bg color).
+ */
+
+@import url('https://rsms.me/inter/inter.css');
+
+:root {
+  --fs-primary: #005f73;
+  --fs-primary-light: #0a9396;
+  --fs-primary-dark: #003844;
+  --fs-accent: #ee9b00;
+
+  --sl-font: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+/* Light theme: full-strength brand teal as the accent. */
+:root[data-theme='light'] {
+  --sl-color-accent-low: #d0e6ea;
+  --sl-color-accent: var(--fs-primary);
+  --sl-color-accent-high: var(--fs-primary-dark);
+}
+
+/* Dark theme: brighter teal so it stays legible on dark slate. */
+:root,
+:root[data-theme='dark'] {
+  --sl-color-accent-low: #002b34;
+  --sl-color-accent: #2faab6;
+  --sl-color-accent-high: #cdeef2;
+}
+
+/* Inline code: subtle teal pill so property names pop on a spec-heavy page. */
+.sl-markdown-content :not(pre) > code {
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+}
+
+:root[data-theme='light'] .sl-markdown-content :not(pre) > code {
+  color: var(--fs-primary-dark);
+  background: var(--sl-color-accent-low);
+}
+
+:root[data-theme='dark'] .sl-markdown-content :not(pre) > code {
+  color: #cdeef2;
+  background: #0c2a31;
+}
+
+/* Section dividers under H2s mirror the mkdocs-material rhythm. */
+.sl-markdown-content h2 {
+  border-bottom: 1px solid var(--sl-color-hairline);
+  padding-bottom: 0.3em;
+}

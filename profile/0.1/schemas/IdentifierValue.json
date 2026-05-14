@@ -1,0 +1,14 @@
+{
+  "additionalProperties": true,
+  "properties": {
+    "@id": {
+      "title": "@Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "@id"
+  ],
+  "title": "IdentifierValue",
+  "type": "object"
+}
