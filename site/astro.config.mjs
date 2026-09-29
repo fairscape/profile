@@ -16,7 +16,16 @@ export default defineConfig({
       sidebar: [
         { label: 'Overview', link: '/' },
         {
-          label: 'v0.1 (Current)',
+          label: 'v0.2 (Current)',
+          items: [
+            { label: 'Specification', link: '/0.2/' },
+            { label: 'Validation Rules (SHACL)', link: '/0.2/validation/' },
+            { label: 'Croissant Mapping', link: '/0.2/croissant-mapping/' },
+            { label: 'JSON Schemas', link: '/0.2/schemas/' },
+          ],
+        },
+        {
+          label: 'v0.1 (Superseded)',
           items: [
             { label: 'Specification', link: '/0.1/' },
             { label: 'Croissant Mapping', link: '/0.1/croissant-mapping/' },
@@ -26,8 +35,9 @@ export default defineConfig({
         {
           label: 'Resources',
           items: [
-            { label: 'Profile Crate (JSON-LD)', link: '/0.1/ro-crate-metadata.json' },
-            { label: 'EVI Vocabulary (TTL)', link: '/0.1/evi-vocabulary.ttl' },
+            { label: 'Profile Crate (JSON-LD)', link: '/0.2/ro-crate-metadata.json' },
+            { label: 'SHACL Shapes (TTL)', link: '/0.2/fairscape-shapes.ttl' },
+            { label: 'EVI Vocabulary (TTL)', link: '/0.2/evi-vocabulary.ttl' },
             { label: 'Fairscape on GitHub', link: 'https://github.com/fairscape' },
           ],
         },

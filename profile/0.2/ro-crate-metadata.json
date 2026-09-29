@@ -1,0 +1,200 @@
+{
+  "@context": [
+    "https://w3id.org/ro/crate/1.2/context",
+    {
+      "prof": "http://www.w3.org/ns/dx/prof/",
+      "role": "http://www.w3.org/ns/dx/prof/role/",
+      "dct": "http://purl.org/dc/terms/"
+    }
+  ],
+  "@graph": [
+    {
+      "@id": "ro-crate-metadata.json",
+      "@type": "CreativeWork",
+      "conformsTo": [
+        {
+          "@id": "https://w3id.org/ro/crate/1.2"
+        }
+      ],
+      "about": {
+        "@id": "https://w3id.org/fairscape/profile/0.2"
+      }
+    },
+    {
+      "@id": "https://w3id.org/fairscape/profile/0.2",
+      "@type": [
+        "Dataset",
+        "Profile"
+      ],
+      "conformsTo": {
+        "@id": "https://w3id.org/fairscape/profile/0.2"
+      },
+      "name": "Fairscape Release RO-Crate Profile",
+      "version": "0.2",
+      "description": "Profile Crate for the Fairscape Release RO-Crate Profile v0.2. This is the W3C PROF manifest enumerating the constituent artifacts (specification, vocabulary, schemas, mapping, example, SHACL shapes, validator) that together define what it means for an RO-Crate to be a Fairscape release.",
+      "keywords": [
+        "RO-Crate",
+        "profile",
+        "Fairscape",
+        "EVI",
+        "FAIR",
+        "AI-Ready"
+      ],
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "author": "Fairscape Team",
+      "datePublished": "2026-09-29",
+      "prof:isProfileOf": [
+        {
+          "@id": "https://w3id.org/ro/crate/1.2"
+        },
+        {
+          "@id": "https://w3id.org/EVI"
+        },
+        {
+          "@id": "http://www.w3.org/ns/prov"
+        },
+        {
+          "@id": "http://mlcommons.org/croissant/1.0"
+        }
+      ],
+      "prof:hasResource": [
+        {
+          "@id": "#specification"
+        },
+        {
+          "@id": "#vocabulary"
+        },
+        {
+          "@id": "#schema"
+        },
+        {
+          "@id": "#mapping"
+        },
+        {
+          "@id": "#example"
+        },
+        {
+          "@id": "#shapes"
+        },
+        {
+          "@id": "#validation"
+        }
+      ],
+      "hasPart": [
+        {
+          "@id": "index.md"
+        },
+        {
+          "@id": "evi-vocabulary.ttl"
+        },
+        {
+          "@id": "fairscape-shapes.ttl"
+        },
+        {
+          "@id": "schemas/"
+        },
+        {
+          "@id": "examples/release/ro-crate-metadata.json"
+        }
+      ],
+      "dct:replaces": {
+        "@id": "https://w3id.org/fairscape/profile/0.1"
+      }
+    },
+    {
+      "@id": "#specification",
+      "@type": "prof:ResourceDescriptor",
+      "name": "Human-readable specification",
+      "prof:hasRole": {
+        "@id": "role:specification"
+      },
+      "prof:hasArtifact": {
+        "@id": "https://fairscape.github.io/profile/0.2/"
+      },
+      "dct:format": "text/html"
+    },
+    {
+      "@id": "#vocabulary",
+      "@type": "prof:ResourceDescriptor",
+      "name": "EVI ontology (OWL/RDFS classes and properties)",
+      "prof:hasRole": {
+        "@id": "role:vocabulary"
+      },
+      "prof:hasArtifact": {
+        "@id": "https://fairscape.github.io/profile/0.2/evi-vocabulary.ttl"
+      },
+      "dct:format": "text/turtle"
+    },
+    {
+      "@id": "#schema",
+      "@type": "prof:ResourceDescriptor",
+      "name": "Per-class JSON Schemas (auto-generated from Pydantic)",
+      "prof:hasRole": {
+        "@id": "role:schema"
+      },
+      "prof:hasArtifact": {
+        "@id": "https://fairscape.github.io/profile/0.2/schemas/"
+      },
+      "dct:format": "application/schema+json"
+    },
+    {
+      "@id": "#mapping",
+      "@type": "prof:ResourceDescriptor",
+      "name": "Croissant / Croissant-RAI 1.0 crosswalk",
+      "prof:hasRole": {
+        "@id": "role:mapping"
+      },
+      "prof:hasArtifact": {
+        "@id": "https://fairscape.github.io/profile/0.2/croissant-mapping.md"
+      },
+      "dct:format": "text/markdown"
+    },
+    {
+      "@id": "#example",
+      "@type": "prof:ResourceDescriptor",
+      "name": "Canonical conforming RO-Crate (CM4AI June 2025 release)",
+      "prof:hasRole": {
+        "@id": "role:example"
+      },
+      "prof:hasArtifact": {
+        "@id": "https://fairscape.github.io/profile/0.2/examples/release/ro-crate-metadata.json"
+      },
+      "dct:format": "application/ld+json"
+    },
+    {
+      "@id": "#shapes",
+      "@type": "prof:ResourceDescriptor",
+      "name": "SHACL shapes: per-class structure and graph-level rules",
+      "description": "Per-class node shapes generated from fairscape_models, plus hand-authored graph rules: provenance edges point at the right entity type (e.g. generatedBy -> Computation/Experiment/Activity), ark: references resolve, ARK identifiers are well-formed, and every Dataset names an author.",
+      "prof:hasRole": {
+        "@id": "role:validation"
+      },
+      "prof:hasArtifact": {
+        "@id": "https://fairscape.github.io/profile/0.2/fairscape-shapes.ttl"
+      },
+      "dct:format": "text/turtle",
+      "dct:conformsTo": {
+        "@id": "http://www.w3.org/ns/shacl#"
+      }
+    },
+    {
+      "@id": "#validation",
+      "@type": "prof:ResourceDescriptor",
+      "name": "Validator: fairscape_models.validation.shacl",
+      "description": "validate_shacl() runs the SHACL shapes with pyshacl (pip install 'fairscape-models[shacl]'); ROCrateV1_2.model_validate() performs the Pydantic structural check.",
+      "prof:hasRole": {
+        "@id": "role:validation"
+      },
+      "prof:hasArtifact": {
+        "@id": "https://github.com/fairscape/fairscape_models/blob/main/fairscape_models/validation/shacl.py"
+      },
+      "dct:format": "text/x-python"
+    },
+    {
+      "@id": "fairscape-shapes.ttl",
+      "@type": "File",
+      "name": "FAIRSCAPE SHACL shapes v0.2.0",
+      "encodingFormat": "text/turtle"
+    }
+  ]
+}

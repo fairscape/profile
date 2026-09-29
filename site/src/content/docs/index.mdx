@@ -10,7 +10,8 @@ The Fairscape RO-Crate Profile defines what it means for an RO-Crate to be a **F
 
 | Version | Profile URI | Specification | Status |
 |---|---|---|---|
-| 0.1 | `https://w3id.org/fairscape/profile/0.1` | [v0.1 spec](/profile/0.1/) | Current |
+| 0.1 | `https://w3id.org/fairscape/profile/0.1` | [v0.1 spec](/profile/0.1/) | Superseded by 0.2 |
+| 0.2 | `https://w3id.org/fairscape/profile/0.2` | [v0.2 spec](/profile/0.2/) | Current (adds SHACL shapes) |
 
 Profile URIs are immutable. Future revisions will be published under a new URI; a crate's `dct:conformsTo` value pins the exact revision it was authored against.
 
@@ -22,7 +23,7 @@ A Fairscape release crate declares conformance by setting `dct:conformsTo` on it
 {
   "@id": "ark:99999/my-release",
   "@type": ["Dataset", "https://w3id.org/EVI#ROCrate"],
-  "conformsTo": { "@id": "https://w3id.org/fairscape/profile/0.1" }
+  "conformsTo": { "@id": "https://w3id.org/fairscape/profile/0.2" }
 }
 ```
 

@@ -18,7 +18,8 @@ A Fairscape Release Crate is an [RO-Crate 1.2](https://www.researchobject.org/ro
 
 | Version | Profile URI | Specification | Status |
 |---|---|---|---|
-| 0.1 | `https://w3id.org/fairscape/profile/0.1` | [v0.1 spec](https://fairscape.github.io/profile/0.1/) | Current |
+| 0.1 | `https://w3id.org/fairscape/profile/0.1` | [v0.1 spec](https://fairscape.github.io/profile/0.1/) | Superseded by 0.2 |
+| 0.2 | `https://w3id.org/fairscape/profile/0.2` | [v0.2 spec](https://fairscape.github.io/profile/0.2/) | Current (adds SHACL shapes) |
 
 Profile URIs are **immutable**. Future revisions will be published under a new URI (e.g. `…/0.2`, `…/1.0`); a crate's `dct:conformsTo` value pins the exact revision it was authored against.
 
@@ -30,11 +31,11 @@ A Fairscape release crate declares conformance by setting `dct:conformsTo` on it
 {
   "@id": "ark:99999/my-release",
   "@type": ["Dataset", "https://w3id.org/EVI#ROCrate"],
-  "conformsTo": { "@id": "https://w3id.org/fairscape/profile/0.1" }
+  "conformsTo": { "@id": "https://w3id.org/fairscape/profile/0.2" }
 }
 ```
 
-Conformance is checkable via `fairscape-cli rocrate validate` (Pydantic-based structural validation).
+Conformance is checkable with [`fairscape_models`](https://github.com/fairscape/fairscape_models): `ROCrateV1_2.model_validate` does the Pydantic structural check. From v0.2 the profile also ships SHACL shapes (`profile/0.2/fairscape-shapes.ttl`), which `fairscape_models.validation.shacl.validate_shacl` runs (`pip install 'fairscape-models[shacl]'`). They add graph rules such as "`generatedBy` must point at a Computation/Experiment".
 
 ## Profile artifacts
 
@@ -47,7 +48,8 @@ Each version lives under `profile/<version>/`. The contents follow the [W3C Prof
 | EVI ontology (classes/properties) | [`profile/0.1/evi-vocabulary.ttl`](profile/0.1/evi-vocabulary.ttl) | `role:vocabulary` | Turtle |
 | Per-class JSON Schemas | [`profile/0.1/schemas/`](profile/0.1/schemas/) | `role:schema` | JSON Schema |
 | Canonical conforming crate | [`profile/0.1/examples/release/`](profile/0.1/examples/release/) | `role:example` | JSON-LD |
-| Validator | [fairscape/fairscape-cli](https://github.com/fairscape/fairscape-cli#validate) | `role:validation` | Python |
+| SHACL shapes (v0.2+) | [`profile/0.2/fairscape-shapes.ttl`](profile/0.2/fairscape-shapes.ttl) | `role:validation` | Turtle |
+| Validator | [`fairscape_models.validation.shacl`](https://github.com/fairscape/fairscape_models/blob/main/fairscape_models/validation/shacl.py) | `role:validation` | Python |
 
 Each artifact resolves at `https://fairscape.github.io/profile/0.1/<artifact>` — the same path declared inside `profile.ttl` and the Profile Crate manifest.
 
@@ -61,6 +63,8 @@ profile/                  # the canonical profile artifacts (source of truth)
     evi-vocabulary.ttl
     schemas/
     examples/release/
+  0.2/                    # adds fairscape-shapes.ttl (SHACL)
+scripts/render_shapes.py  # regenerates site/.../<version>/validation.md from the shapes
 site/                     # Astro + Starlight source for the rendered spec site
 README.md                 # you are here
 ```
@@ -76,7 +80,7 @@ The `site/` folder is the documentation generator — see [`site/README.md`](sit
 ## Related Fairscape projects
 
 - [fairscape-cli](https://github.com/fairscape/fairscape-cli) — builds and validates release crates
-- [fairscape_models](https://github.com/fairscape/fairscape_models) — Pydantic models (authoritative source for required/optional fields)
+- [fairscape_models](https://github.com/fairscape/fairscape_models) — Pydantic models (authoritative source for required/optional fields) and the SHACL validator
 - [fairscape_server](https://github.com/fairscape/fairscape_server) — API server
 - [fairscape_web_client](https://github.com/fairscape/fairscape_web_client) — web UI
 
