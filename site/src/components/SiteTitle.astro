@@ -1,0 +1,77 @@
+---
+/**
+ * Site title with a button that collapses the left navigation on desktop.
+ * Collapsed by default; the choice is remembered in localStorage.
+ * The mobile menu is Starlight's own and is untouched.
+ */
+import Default from '@astrojs/starlight/components/SiteTitle.astro';
+---
+
+<script is:inline>
+  (function () {
+    var v = null;
+    try { v = localStorage.getItem('fs-nav'); } catch (e) {}
+    document.documentElement.dataset.fsNav = v === 'open' ? 'open' : 'collapsed';
+  })();
+</script>
+
+<div class="fs-title-wrap sl-flex">
+  <button
+    class="fs-nav-toggle"
+    type="button"
+    aria-controls="starlight__sidebar"
+    aria-label="Toggle navigation"
+    title="Show or hide the navigation"
+  >
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+      <path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    </svg>
+  </button>
+  <Default {...Astro.props}><slot /></Default>
+</div>
+
+<script>
+  const root = document.documentElement;
+  const sync = () => {
+    const open = root.dataset.fsNav === 'open';
+    document.querySelectorAll<HTMLButtonElement>('.fs-nav-toggle').forEach((b) =>
+      b.setAttribute('aria-expanded', String(open)),
+    );
+  };
+  document.querySelectorAll<HTMLButtonElement>('.fs-nav-toggle').forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const next = root.dataset.fsNav === 'open' ? 'collapsed' : 'open';
+      root.dataset.fsNav = next;
+      try { localStorage.setItem('fs-nav', next); } catch {}
+      sync();
+    }),
+  );
+  sync();
+</script>
+
+<style>
+  .fs-title-wrap {
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .fs-nav-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.4rem;
+    background: transparent;
+    color: var(--sl-color-gray-2);
+    cursor: pointer;
+    padding: 0;
+  }
+  .fs-nav-toggle:hover {
+    color: var(--sl-color-white);
+    background: var(--sl-color-gray-6);
+  }
+  @media (min-width: 50rem) {
+    .fs-nav-toggle { display: inline-flex; }
+  }
+</style>

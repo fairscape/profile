@@ -53,3 +53,37 @@
   border-bottom: 1px solid var(--sl-color-hairline);
   padding-bottom: 0.3em;
 }
+
+/* Collapsible left navigation (desktop). The toggle lives in SiteTitle.astro and
+   sets data-fs-nav on <html>. Collapsed hides the pane and drops the content
+   offset. --sl-sidebar-width is left alone because the "On this page" panel is
+   sized from it too. */
+@media (min-width: 50rem) {
+  :root[data-fs-nav='collapsed'][data-has-sidebar] {
+    --sl-content-inline-start: 0px;
+  }
+  :root[data-fs-nav='collapsed'] .sidebar-pane {
+    display: none;
+  }
+}
+
+/* Collapsible "On this page" (wide screens). The toggle lives in
+   PageSidebar.astro and sets data-fs-toc on <html>. Collapsed keeps a thin strip
+   for the button and gives the rest of the width to the content. */
+@media (min-width: 72rem) {
+  :root[data-fs-toc='collapsed'] .right-sidebar-container {
+    width: 3.25rem;
+  }
+  :root[data-fs-toc='collapsed'] .right-sidebar-panel {
+    display: none;
+  }
+  :root[data-fs-toc='collapsed'][data-has-sidebar][data-has-toc] .main-pane {
+    width: calc(100% - 3.25rem);
+    --sl-content-margin-inline: auto;
+  }
+}
+
+/* The TOC heading sits beside the collapse button. */
+.right-sidebar-panel h2#starlight__on-this-page {
+  padding-inline-end: 2.25rem;
+}

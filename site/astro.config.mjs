@@ -13,6 +13,10 @@ export default defineConfig({
         github: 'https://github.com/fairscape',
       },
       customCss: ['./src/styles/fairscape.css'],
+      components: {
+        SiteTitle: './src/components/SiteTitle.astro',
+        PageSidebar: './src/components/PageSidebar.astro',
+      },
       sidebar: [
         { label: 'Overview', link: '/' },
         {

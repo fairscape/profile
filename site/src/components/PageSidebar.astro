@@ -1,0 +1,89 @@
+---
+/**
+ * "On this page" panel with a button that collapses it to a thin strip on wide
+ * screens, giving the content the width back. Open by default; the choice is
+ * remembered in localStorage. The mobile table of contents is Starlight's own.
+ */
+import Default from '@astrojs/starlight/components/PageSidebar.astro';
+---
+
+<script is:inline>
+  (function () {
+    var v = null;
+    try { v = localStorage.getItem('fs-toc'); } catch (e) {}
+    document.documentElement.dataset.fsToc = v === 'collapsed' ? 'collapsed' : 'open';
+  })();
+</script>
+
+{
+  Astro.props.toc && (
+    <button
+      class="fs-toc-toggle"
+      type="button"
+      aria-controls="starlight__on-this-page"
+      aria-label="Toggle table of contents"
+      title="Show or hide “On this page”"
+    >
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+        <path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+  )
+}
+<Default {...Astro.props}><slot /></Default>
+
+<script>
+  const root = document.documentElement;
+  const sync = () => {
+    const open = root.dataset.fsToc !== 'collapsed';
+    document.querySelectorAll<HTMLButtonElement>('.fs-toc-toggle').forEach((b) =>
+      b.setAttribute('aria-expanded', String(open)),
+    );
+  };
+  document.querySelectorAll<HTMLButtonElement>('.fs-toc-toggle').forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const next = root.dataset.fsToc === 'collapsed' ? 'open' : 'collapsed';
+      root.dataset.fsToc = next;
+      try { localStorage.setItem('fs-toc', next); } catch {}
+      sync();
+    }),
+  );
+  sync();
+</script>
+
+<style>
+  .fs-toc-toggle {
+    display: none;
+    position: absolute;
+    /* The fixed panel can be wider than the viewport, so anchor from its start edge. */
+    top: calc(var(--sl-nav-height) + 1rem);
+    inset-inline-start: calc(var(--sl-sidebar-width) - var(--sl-sidebar-pad-x) - 1.75rem);
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.4rem;
+    background: var(--sl-color-bg);
+    color: var(--sl-color-gray-2);
+    cursor: pointer;
+    padding: 0;
+  }
+  .fs-toc-toggle:hover {
+    color: var(--sl-color-white);
+    background: var(--sl-color-gray-6);
+  }
+  .fs-toc-toggle svg {
+    transition: transform 0.15s ease;
+  }
+  :global(:root[data-fs-toc='collapsed']) .fs-toc-toggle {
+    inset-inline-start: 0.75rem;
+  }
+  :global(:root[data-fs-toc='collapsed']) .fs-toc-toggle svg {
+    transform: rotate(180deg);
+  }
+  @media (min-width: 72rem) {
+    .fs-toc-toggle { display: inline-flex; }
+  }
+</style>
